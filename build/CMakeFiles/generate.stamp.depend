@@ -1,0 +1,42 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeCXXInformation.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeDependentOption.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeGenericSystem.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeRCInformation.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/Compiler/MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/Compiler/MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/FindOpenGL.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/Platform/Windows-MSVC.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/Platform/Windows.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/Platform/WindowsPaths.cmake
+C:/Program Files/CMake/share/cmake-3.24/Modules/SelectLibraryConfigurations.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/fmt/fmt-config-version.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/fmt/fmt-config.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/fmt/fmt-targets-debug.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/fmt/fmt-targets-release.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/fmt/fmt-targets.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glew/CopyImportedTargetProperties.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glew/glew-config.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glew/glew-targets-debug.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glew/glew-targets-release.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glew/glew-targets.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glew/vcpkg-cmake-wrapper.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glfw3/glfw3Config.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glfw3/glfw3ConfigVersion.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glfw3/glfw3Targets-debug.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glfw3/glfw3Targets-release.cmake
+C:/Users/yahya/vcpkg/installed/x64-windows/share/glfw3/glfw3Targets.cmake
+C:/Users/yahya/vcpkg/scripts/buildsystems/vcpkg.cmake
+E:/vsCode/cpp/space_invader/CMakeLists.txt
+E:/vsCode/cpp/space_invader/build/CMakeFiles/3.24.0-rc5/CMakeCXXCompiler.cmake
+E:/vsCode/cpp/space_invader/build/CMakeFiles/3.24.0-rc5/CMakeRCCompiler.cmake
+E:/vsCode/cpp/space_invader/build/CMakeFiles/3.24.0-rc5/CMakeSystem.cmake
