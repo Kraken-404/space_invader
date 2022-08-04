@@ -41,7 +41,7 @@ auto main(int argc, char *argv[]) -> int {
   // init glew
   GLenum err = glewInit();
   if (err != GLEW_OK) {
-    fmt::print("Error initializing `glew`\n"                         
+    fmt::print("Error initializing `glew`\n");
     return -1;
   }
   // using a little OpenGL functions
