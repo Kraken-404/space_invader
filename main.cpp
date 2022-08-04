@@ -1,7 +1,6 @@
+#include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
-#include <gl/glew.h>
-
 
 struct buffer {
   std::size_t width{}, height{};
