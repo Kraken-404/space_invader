@@ -3,10 +3,15 @@
 #include <fmt/format.h>
 #include <vector>
 
-
 struct buffer {
   std::size_t width{}, height{};
   std::vector<uint32_t> m_data{};
+};
+
+// 8 bit character
+struct sprite {
+  std::size_t width{}, height{};
+  std::vector<uint8_t> m_data{};
 };
 
 // to get error events, events in glfw reported through callbacks
@@ -83,6 +88,20 @@ auto validate_program(GLuint program) -> bool {
   }
 
   return true;
+}
+
+auto buf_sprt_draw(buffer *bfr, const sprite &sprt, std::size_t x,
+                   std::size_t y, uint32_t color) -> void {
+  for (size_t xi = 0; xi < sprt.width; ++xi) {
+    for (size_t yi = 0; yi < sprt.height; ++yi) {
+      auto sy = sprt.height - 1 + y - yi;
+      auto sx = x + xi;
+      if (sprt.m_data[yi * sprt.width + xi] && sy < bfr->height &&
+          sx < bfr->width) {
+        bfr->m_data[sy * bfr->width + sx] = color;
+      }
+    }
+  }
 }
 
 auto main(int argc, char *argv[]) -> int {
@@ -212,15 +231,31 @@ auto main(int argc, char *argv[]) -> int {
    *
    */
 
-  GLint location = glGetUniformLocation(shader_id, "bfr"); // Returns the location of a uniform variable
+  GLint location = glGetUniformLocation(
+      shader_id, "bfr"); // Returns the location of a uniform variable
   glUniform1i(location, 0);
-
   glDisable(GL_DEPTH_TEST); // disable server-side GL capabilities
   glActiveTexture(GL_TEXTURE0);
+  // creating sprite
+  sprite alien;
+  alien.width = 11;
+  alien.height = 8;
+  alien.m_data.resize(alien.width * alien.height);
+  alien.m_data = {
+      0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, // ..@.....@..
+      0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, // ...@...@...
+      0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, // ..@@@@@@@..
+      0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, // .@@.@@@.@@.
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
+      1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, // @.@@@@@@@.@
+      1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, // @.@.....@.@
+      0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0  // ...@@.@@...
+  };
   // creating the game loop
   while (!glfwWindowShouldClose(window)) {
 
     buffer_clear(&bfr, clear_color);
+  buf_sprt_draw(&bfr, alien, 350, 300, rgb_uint32(128, 0, 0));
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
                     GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);
