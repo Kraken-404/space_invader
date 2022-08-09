@@ -1,10 +1,12 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
+#include <vector>
+
 
 struct buffer {
   std::size_t width{}, height{};
-  uint32_t *m_data{};
+  std::vector<uint32_t> m_data{};
 };
 
 // to get error events, events in glfw reported through callbacks
@@ -40,7 +42,7 @@ inline auto rgb_uint32(uint8_t red, uint8_t green, uint8_t blue) -> uint32_t {
  * @param color
  */
 auto buffer_clear(buffer *bfr, uint32_t color) -> void {
-  for (std::size_t i{}; i < bfr->width * bfr->height; ++i) {
+  for (auto i{0u}; i < bfr->width * bfr->height; ++i) {
     bfr->m_data[i] = color;
   }
 }
@@ -55,7 +57,7 @@ simple functions, validate_shader and validate_program
  * @param shader
  * @param file
  */
-void validate_shader(GLuint shader, const char *file = 0) {
+auto validate_shader(GLuint shader, const char *file = 0) -> void {
   static const unsigned int BUFFER_SIZE = 512;
   char buffer[BUFFER_SIZE];
   GLsizei length = 0;
@@ -68,7 +70,7 @@ void validate_shader(GLuint shader, const char *file = 0) {
   }
 }
 
-bool validate_program(GLuint program) {
+auto validate_program(GLuint program) -> bool {
   static const GLsizei BUFFER_SIZE = 512;
   GLcharARB buffer[BUFFER_SIZE];
   GLsizei length = 0;
@@ -90,8 +92,8 @@ auto main(int argc, char *argv[]) -> int {
     return -1;
   }
 
-  const uint32_t buffer_width{224};
-  const uint32_t buffer_height{256};
+  constexpr uint32_t buffer_width{700};
+  constexpr uint32_t buffer_height{600};
 
   // creating window
   auto window = glfwCreateWindow(buffer_width, buffer_height, "Space Invaders",
@@ -112,25 +114,14 @@ auto main(int argc, char *argv[]) -> int {
   //
   const auto clear_color{rgb_uint32(0, 128, 0)};
 
-  //glClearColor(1.0, 0.0, 0.0, 1.0);
-
+  // glClearColor(1.0, 0.0, 0.0, 1.0);
+  // Create graphics buffer
   buffer bfr;
   bfr.height = buffer_height;
   bfr.width = buffer_width;
-  bfr.m_data = new uint32_t[buffer_width * buffer_height];
+  bfr.m_data.resize(buffer_width * buffer_height);
   //
   buffer_clear(&bfr, clear_color);
-
-  // transfer image data to GPU using OpenGL texture
-  GLuint buffer_texture;
-  glGenTextures(1, &buffer_texture);
-  glBindTexture(GL_TEXTURE_2D, buffer_texture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, bfr.width, bfr.height, 0, GL_RGBA,
-               GL_UNSIGNED_INT_8_8_8_8, bfr.m_data);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
   //
   const char *vertex_shader =
       "\n"
@@ -162,6 +153,18 @@ auto main(int argc, char *argv[]) -> int {
   // VAO
   GLuint full_screen_traingle_vao{};
   glGenVertexArrays(1, &full_screen_traingle_vao);
+  glBindVertexArray(full_screen_traingle_vao); // bind obj with the name
+
+  // transfer image data to GPU using OpenGL texture
+  GLuint buffer_texture;
+  glGenTextures(1, &buffer_texture);
+  glBindTexture(GL_TEXTURE_2D, buffer_texture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, bfr.width, bfr.height, 0, GL_RGBA,
+               GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
   // creating shaders
   GLuint shader_id = glCreateProgram();
@@ -195,7 +198,6 @@ auto main(int argc, char *argv[]) -> int {
     fmt::print(" error while validating shader.\n");
     glfwTerminate();
     glDeleteVertexArrays(1, &full_screen_traingle_vao);
-    delete[] bfr.m_data;
     return -1;
   }
   glUseProgram(shader_id);
@@ -210,18 +212,17 @@ auto main(int argc, char *argv[]) -> int {
    *
    */
 
-  GLint location = glGetUniformLocation(shader_id, "buffer");
+  GLint location = glGetUniformLocation(shader_id, "bfr"); // Returns the location of a uniform variable
   glUniform1i(location, 0);
 
-  glDisable(GL_DEPTH_TEST);
+  glDisable(GL_DEPTH_TEST); // disable server-side GL capabilities
   glActiveTexture(GL_TEXTURE0);
-  glBindVertexArray(full_screen_traingle_vao);
   // creating the game loop
   while (!glfwWindowShouldClose(window)) {
 
     buffer_clear(&bfr, clear_color);
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
-                    GL_UNSIGNED_INT_8_8_8_8, bfr.m_data);
+                    GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);
     glfwSwapBuffers(window); // double buffering scheme, front to dispaly image
     // back to drawing, the buffers swappet each itr using this func
@@ -232,6 +233,5 @@ auto main(int argc, char *argv[]) -> int {
   glfwTerminate();
 
   glDeleteVertexArrays(1, &full_screen_traingle_vao);
-  delete[] bfr.m_data;
   return 0;
 }
