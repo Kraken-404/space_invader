@@ -117,15 +117,15 @@ auto validate_program(GLuint program) -> bool {
   return true;
 }
 
-auto buf_sprt_draw(Buffer *bfr, const Sprite &sprt, std::size_t x,
+auto buf_sprt_draw(Buffer &bfr, const Sprite &sprt, std::size_t x,
                    std::size_t y, uint32_t color) -> void {
   for (size_t xi = 0; xi < sprt.width; ++xi) {
     for (size_t yi = 0; yi < sprt.height; ++yi) {
       auto sy = sprt.height - 1 + y - yi;
       auto sx = x + xi;
-      if (sprt.m_data[yi * sprt.width + xi] && sy < bfr->height &&
-          sx < bfr->width) {
-        bfr->m_data[sy * bfr->width + sx] = color;
+      if (sprt.m_data[yi * sprt.width + xi] && sy < bfr.height &&
+          sx < bfr.width) {
+        bfr.m_data[sy * bfr.width + sx] = color;
       }
     }
   }
@@ -365,11 +365,11 @@ auto main(int argc, char *argv[]) -> int {
     // drawing
     for (size_t i = 0; i < game.num_aliens; ++i) {
       const Alien &alien = game.aliens[i];
-      buf_sprt_draw(&bfr, alien_sprite0, alien.x, alien.y,
+      buf_sprt_draw(bfr, alien_sprite0, alien.x, alien.y,
                     rgb_uint32(128, 0, 0));
     }
 
-    buf_sprt_draw(&bfr, player, game.player.x, game.player.y,
+    buf_sprt_draw(bfr, player, game.player.x, game.player.y,
                   rgb_uint32(128, 0, 0));
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
                     GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
