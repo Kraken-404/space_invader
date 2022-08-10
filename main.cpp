@@ -2,8 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
 #include <memory>
+#include <utility>
 #include <vector>
-
 
 struct Buffer {
   std::size_t width{}, height{};
@@ -264,14 +264,12 @@ auto main(int argc, char *argv[]) -> int {
   glDisable(GL_DEPTH_TEST); // disable server-side GL capabilities
   glActiveTexture(GL_TEXTURE0);
 
-  fmt::print("line 266 working...\n");
-
   // creating player
-  Sprite player{};
-  player.width = 11;
-  player.height = 7;
-  player.m_data.resize(player.height * player.width);
-  player.m_data = {
+  Sprite player_sprite{};
+  player_sprite.width = 11;
+  player_sprite.height = 7;
+  player_sprite.m_data.resize(player_sprite.height * player_sprite.width);
+  player_sprite.m_data = {
       0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, // .....@.....
       0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, // ....@@@....
       0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, // ....@@@....
@@ -280,8 +278,6 @@ auto main(int argc, char *argv[]) -> int {
       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
   };
-
-  fmt::print("line 283 working...\n");
 
   // init game struct
   Game game{};
@@ -292,8 +288,6 @@ auto main(int argc, char *argv[]) -> int {
   game.player.x = 112 - 5;
   game.player.y = 32;
   game.player.lifes = 3;
-
-  fmt::print("line 295 working...\n");
 
   // creating sprite alien
   Sprite alien_sprite0;
@@ -336,21 +330,19 @@ auto main(int argc, char *argv[]) -> int {
   }
 
   // creating animation for the aliens
-/*
-  auto alien_animtion = std::weak_ptr<Sprite_animation>().lock();
+
+  // FIXME: causes crash: access violation
+  auto alien_animtion = std::make_unique<Sprite_animation>();
   alien_animtion->loop = true;
   alien_animtion->num_frames = 2;
   alien_animtion->frame_duration = 10;
   alien_animtion->time = 0;
 
-  fmt::print("line 336 working...\n");
-
   // defining frames
   alien_animtion->frames = new Sprite *[2];
   alien_animtion->frames[0] = &alien_sprite0;
   alien_animtion->frames[1] = &alien_sprite1;
-  fmt::print("342 working...\n");
-*/
+
   // V-Sync
   glfwSwapInterval(1);
 
@@ -365,12 +357,39 @@ auto main(int argc, char *argv[]) -> int {
     // drawing
     for (size_t i = 0; i < game.num_aliens; ++i) {
       const Alien &alien = game.aliens[i];
-      buf_sprt_draw(bfr, alien_sprite0, alien.x, alien.y,
+      std::size_t curr_frame =
+          alien_animtion->time / alien_animtion->frame_duration;
+      const Sprite &sprite = *alien_animtion->frames[curr_frame];
+      buf_sprt_draw(bfr, sprite, alien.x, alien.y,
                     rgb_uint32(128, 0, 0));
     }
 
-    buf_sprt_draw(bfr, player, game.player.x, game.player.y,
+    buf_sprt_draw(bfr, player_sprite, game.player.x, game.player.y,
                   rgb_uint32(128, 0, 0));
+
+    // alien animation:
+    ++alien_animtion->time;
+    if (alien_animtion->time ==
+        alien_animtion->num_frames * alien_animtion->frame_duration) {
+      if (alien_animtion->loop)
+        alien_animtion->time = 0;
+      else {
+        alien_animtion.release();
+        alien_animtion.reset();
+      }
+    }
+
+    // player movement
+    if (game.player.x + player_sprite.width + player_move >= game.width - 1) {
+      game.player.x = game.width - player_sprite.width - player_move -1;
+      player_move *= -1;
+    } else if (static_cast<int>(game.player.x) + player_move <= 0) {
+      game.player.x = 0;
+      player_move *= -1;
+    } else {
+      game.player.x += player_move;
+    }
+
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
                     GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);
