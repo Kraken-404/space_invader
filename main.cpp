@@ -1,17 +1,43 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
+#include <memory>
 #include <vector>
 
-struct buffer {
+struct Buffer {
   std::size_t width{}, height{};
   std::vector<uint32_t> m_data{};
 };
 
 // 8 bit character
-struct sprite {
+struct Sprite {
   std::size_t width{}, height{};
   std::vector<uint8_t> m_data{};
+};
+
+struct Alien {
+  std::size_t x{}, y{};
+  uint8_t type{};
+};
+
+struct Player {
+  std::size_t x{}, y{};
+  std::size_t lifes{};
+};
+
+struct Game {
+  std::size_t width{}, height{};
+  std::size_t num_aliens{};
+  std::vector<Alien> aliens{};
+  Player player{};
+};
+
+struct Sprite_animation {
+  bool loop{};
+  std::size_t num_frames{};
+  std::size_t frame_duration{};
+  std::size_t time{};
+  std::weak_ptr<Sprite **> frames{};
 };
 
 // to get error events, events in glfw reported through callbacks
@@ -46,9 +72,9 @@ inline auto rgb_uint32(uint8_t red, uint8_t green, uint8_t blue) -> uint32_t {
  * @param bfr
  * @param color
  */
-auto buffer_clear(buffer *bfr, uint32_t color) -> void {
-  for (auto i{0u}; i < bfr->width * bfr->height; ++i) {
-    bfr->m_data[i] = color;
+auto buffer_clear(Buffer &bfr, uint32_t color) -> void {
+  for (auto i{0u}; i < bfr.width * bfr.height; ++i) {
+    bfr.m_data[i] = color;
   }
 }
 
@@ -90,7 +116,7 @@ auto validate_program(GLuint program) -> bool {
   return true;
 }
 
-auto buf_sprt_draw(buffer *bfr, const sprite &sprt, std::size_t x,
+auto buf_sprt_draw(Buffer *bfr, const Sprite &sprt, std::size_t x,
                    std::size_t y, uint32_t color) -> void {
   for (size_t xi = 0; xi < sprt.width; ++xi) {
     for (size_t yi = 0; yi < sprt.height; ++yi) {
@@ -111,8 +137,8 @@ auto main(int argc, char *argv[]) -> int {
     return -1;
   }
 
-  constexpr uint32_t buffer_width{700};
-  constexpr uint32_t buffer_height{600};
+  constexpr uint32_t buffer_width{224};
+  constexpr uint32_t buffer_height{256};
 
   // creating window
   auto window = glfwCreateWindow(buffer_width, buffer_height, "Space Invaders",
@@ -135,12 +161,12 @@ auto main(int argc, char *argv[]) -> int {
 
   // glClearColor(1.0, 0.0, 0.0, 1.0);
   // Create graphics buffer
-  buffer bfr;
+  Buffer bfr;
   bfr.height = buffer_height;
   bfr.width = buffer_width;
   bfr.m_data.resize(buffer_width * buffer_height);
   //
-  buffer_clear(&bfr, clear_color);
+  buffer_clear(bfr, clear_color);
   //
   const char *vertex_shader =
       "\n"
@@ -236,12 +262,44 @@ auto main(int argc, char *argv[]) -> int {
   glUniform1i(location, 0);
   glDisable(GL_DEPTH_TEST); // disable server-side GL capabilities
   glActiveTexture(GL_TEXTURE0);
-  // creating sprite
-  sprite alien;
-  alien.width = 11;
-  alien.height = 8;
-  alien.m_data.resize(alien.width * alien.height);
-  alien.m_data = {
+
+  fmt::print("line 266 working...\n");
+
+  // creating player
+  Sprite player{};
+  player.width = 11;
+  player.height = 7;
+  player.m_data.resize(player.height * player.width);
+  player.m_data = {
+      0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, // .....@.....
+      0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, // ....@@@....
+      0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, // ....@@@....
+      0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, // .@@@@@@@@@.
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
+  };
+
+  fmt::print("line 283 working...\n");
+
+  // init game struct
+  Game game{};
+  game.width = bfr.width;
+  game.height = bfr.height;
+  game.num_aliens = 55;
+  game.aliens = std::vector<Alien>(game.num_aliens);
+  game.player.x = 112 - 5;
+  game.player.y = 32;
+  game.player.lifes = 3;
+
+  fmt::print("line 295 working...\n");
+
+  // creating sprite alien
+  Sprite alien_sprite0;
+  alien_sprite0.width = 11;
+  alien_sprite0.height = 8;
+  alien_sprite0.m_data.resize(alien_sprite0.width * alien_sprite0.height);
+  alien_sprite0.m_data = {
       0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, // ..@.....@..
       0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, // ...@...@...
       0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, // ..@@@@@@@..
@@ -251,11 +309,59 @@ auto main(int argc, char *argv[]) -> int {
       1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 1, // @.@.....@.@
       0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0  // ...@@.@@...
   };
+  //
+
+  Sprite alien_sprite1{};
+  alien_sprite1.width = 11;
+  alien_sprite1.height = 8;
+  alien_sprite1.m_data.resize(alien_sprite1.width * alien_sprite1.height);
+  alien_sprite1.m_data = {
+      0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, // ..@.....@..
+      1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, // @..@...@..@
+      1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, // @.@@@@@@@.@
+      1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, // @@@.@@@.@@@
+      1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
+      0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, // .@@@@@@@@@.
+      0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, // ..@.....@..
+      0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0  // .@.......@.
+  };
+
+  // positioning aliens
+  for (size_t i = 0; i < 5; ++i) {
+    for (size_t j = 0; j < 11; ++j) {
+      game.aliens[i * 11 + j].x = 17 * j + 22;
+      game.aliens[i * 11 + j].y = 17 * i + 128;
+    }
+  }
+
+  // creating animation for the aliens
+  /*
+  auto alien_animtion = std::weak_ptr<Sprite_animation>().lock();
+  alien_animtion->loop = true;
+  alien_animtion->num_frames = 2;
+  alien_animtion->frame_duration = 10;
+  alien_animtion->time = 0;
+
+  fmt::print("line 336 working...\n");
+
+  // defining frames
+  alien_animtion->frames = std::weak_ptr<Sprite **>().lock();
+*/
+  fmt::print("342 working...\n");
+
   // creating the game loop
   while (!glfwWindowShouldClose(window)) {
 
-    buffer_clear(&bfr, clear_color);
-  buf_sprt_draw(&bfr, alien, 350, 300, rgb_uint32(128, 0, 0));
+    buffer_clear(bfr, clear_color);
+
+    // drawing
+    for (size_t i = 0; i < game.num_aliens; ++i) {
+      const Alien &alien = game.aliens[i];
+      buf_sprt_draw(&bfr, alien_sprite0, alien.x, alien.y,
+                    rgb_uint32(128, 0, 0));
+    }
+
+    buf_sprt_draw(&bfr, player, game.player.x, game.player.y, rgb_uint32(128, 0, 0));
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
                     GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);
