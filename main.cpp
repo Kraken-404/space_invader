@@ -383,5 +383,4 @@ auto main(int argc, char *argv[]) -> int {
   glfwTerminate();
 
   glDeleteVertexArrays(1, &full_screen_traingle_vao);
-  return 0;
 }
