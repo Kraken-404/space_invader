@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 
+
 struct Buffer {
   std::size_t width{}, height{};
   std::vector<uint32_t> m_data{};
@@ -37,7 +38,7 @@ struct Sprite_animation {
   std::size_t num_frames{};
   std::size_t frame_duration{};
   std::size_t time{};
-  std::weak_ptr<Sprite **> frames{};
+  Sprite **frames{};
 };
 
 // to get error events, events in glfw reported through callbacks
@@ -335,7 +336,7 @@ auto main(int argc, char *argv[]) -> int {
   }
 
   // creating animation for the aliens
-  /*
+/*
   auto alien_animtion = std::weak_ptr<Sprite_animation>().lock();
   alien_animtion->loop = true;
   alien_animtion->num_frames = 2;
@@ -345,9 +346,16 @@ auto main(int argc, char *argv[]) -> int {
   fmt::print("line 336 working...\n");
 
   // defining frames
-  alien_animtion->frames = std::weak_ptr<Sprite **>().lock();
-*/
+  alien_animtion->frames = new Sprite *[2];
+  alien_animtion->frames[0] = &alien_sprite0;
+  alien_animtion->frames[1] = &alien_sprite1;
   fmt::print("342 working...\n");
+*/
+  // V-Sync
+  glfwSwapInterval(1);
+
+  // control player direction movement
+  int player_move = 1;
 
   // creating the game loop
   while (!glfwWindowShouldClose(window)) {
@@ -361,7 +369,8 @@ auto main(int argc, char *argv[]) -> int {
                     rgb_uint32(128, 0, 0));
     }
 
-    buf_sprt_draw(&bfr, player, game.player.x, game.player.y, rgb_uint32(128, 0, 0));
+    buf_sprt_draw(&bfr, player, game.player.x, game.player.y,
+                  rgb_uint32(128, 0, 0));
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
                     GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);

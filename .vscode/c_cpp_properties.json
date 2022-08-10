@@ -13,8 +13,8 @@
                 "_UNICODE"
             ],
             "windowsSdkVersion": "10.0.19041.0",
-            "cStandard": "c17",
-            "configurationProvider": "ms-vscode.cmake-tools"
+            "compilerPath": "E:/vs_2022/VC/Tools/MSVC/14.32.31326/bin/Hostx64/x64/cl.exe",
+            "cStandard": "c17"
         }
     ],
     "version": 4
