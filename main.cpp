@@ -5,6 +5,9 @@
 #include <utility>
 #include <vector>
 
+bool game_runnig{false};
+int move_dir = 0;
+
 struct Buffer {
   std::size_t width{}, height{};
   std::vector<uint32_t> m_data{};
@@ -38,7 +41,7 @@ struct Sprite_animation {
   std::size_t num_frames{};
   std::size_t frame_duration{};
   std::size_t time{};
-  std::vector<Sprite*> frames{};
+  std::vector<Sprite *> frames{};
 };
 
 // to get error events, events in glfw reported through callbacks
@@ -52,6 +55,33 @@ struct Sprite_animation {
  */
 auto error_callback(int error, const char *description) -> void {
   fmt::print("Error: {} msg: {}\n", error, description);
+}
+
+auto key_callback(GLFWwindow *window, int key, int scancode, int action,
+                  int mods) {
+  switch (key) {
+  case GLFW_KEY_ESCAPE:
+    if (action == GLFW_PRESS) {
+      game_runnig = false;
+      break;
+    }
+  case GLFW_KEY_D: {
+    if (action == GLFW_PRESS)
+      move_dir += 1;
+    else if (action == GLFW_RELEASE)
+      move_dir -= 1;
+    break;
+  }
+  case GLFW_KEY_A: {
+    if (action == GLFW_PRESS)
+      move_dir -= 1;
+    else if (action == GLFW_RELEASE)
+      move_dir += 1;
+    break;
+  }
+  default:
+    break;
+  }
 }
 
 /**
@@ -149,6 +179,9 @@ auto main(int argc, char *argv[]) -> int {
     return -1;
   }
 
+  // using keys
+  glfwSetKeyCallback(window, key_callback);
+
   // making that window appear
   glfwMakeContextCurrent(window);
 
@@ -158,7 +191,7 @@ auto main(int argc, char *argv[]) -> int {
     return -1;
   }
   //
-  const auto clear_color{rgb_uint32(0, 128, 0)};
+  const auto clear_color{rgb_uint32(32, 120, 100)};
 
   // glClearColor(1.0, 0.0, 0.0, 1.0);
   // Create graphics buffer
@@ -346,10 +379,11 @@ auto main(int argc, char *argv[]) -> int {
   glfwSwapInterval(1);
 
   // control player direction movement
-  int player_move = 1;
-
+  int player_move = 0;
+  // indicates the game is still running
+  game_runnig = true;
   // creating the game loop
-  while (!glfwWindowShouldClose(window)) {
+  while (!glfwWindowShouldClose(window) && game_runnig) {
 
     buffer_clear(bfr, clear_color);
 
@@ -359,8 +393,7 @@ auto main(int argc, char *argv[]) -> int {
       std::size_t curr_frame =
           alien_animtion->time / alien_animtion->frame_duration;
       const Sprite &sprite = *alien_animtion->frames[curr_frame];
-      buf_sprt_draw(bfr, sprite, alien.x, alien.y,
-                    rgb_uint32(128, 0, 0));
+      buf_sprt_draw(bfr, sprite, alien.x, alien.y, rgb_uint32(128, 0, 0));
     }
 
     buf_sprt_draw(bfr, player_sprite, game.player.x, game.player.y,
@@ -379,14 +412,15 @@ auto main(int argc, char *argv[]) -> int {
     }
 
     // player movement
-    if (game.player.x + player_sprite.width + player_move >= game.width - 1) {
-      game.player.x = game.width - player_sprite.width - player_move -1;
-      player_move *= -1;
-    } else if (static_cast<int>(game.player.x) + player_move <= 0) {
-      game.player.x = 0;
-      player_move *= -1;
-    } else {
-      game.player.x += player_move;
+    player_move = 2 * move_dir;
+    if (player_move != 0) {
+      if (game.player.x + player_sprite.width + player_move >= game.width) {
+        game.player.x = game.width - player_sprite.width;
+      } else if (static_cast<int>(game.player.x) + player_move <= 0) {
+        game.player.x = 0;
+      } else {
+        game.player.x += player_move;
+      }
     }
 
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
