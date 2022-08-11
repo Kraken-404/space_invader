@@ -38,7 +38,7 @@ struct Sprite_animation {
   std::size_t num_frames{};
   std::size_t frame_duration{};
   std::size_t time{};
-  Sprite **frames{};
+  std::vector<Sprite*> frames{};
 };
 
 // to get error events, events in glfw reported through callbacks
@@ -331,7 +331,6 @@ auto main(int argc, char *argv[]) -> int {
 
   // creating animation for the aliens
 
-  // FIXME: causes crash: access violation
   auto alien_animtion = std::make_unique<Sprite_animation>();
   alien_animtion->loop = true;
   alien_animtion->num_frames = 2;
@@ -339,7 +338,7 @@ auto main(int argc, char *argv[]) -> int {
   alien_animtion->time = 0;
 
   // defining frames
-  alien_animtion->frames = new Sprite *[2];
+  alien_animtion->frames.resize(2);
   alien_animtion->frames[0] = &alien_sprite0;
   alien_animtion->frames[1] = &alien_sprite1;
 
