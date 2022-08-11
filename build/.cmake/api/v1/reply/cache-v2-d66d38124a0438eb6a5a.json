@@ -27,7 +27,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "e:/vsCode/cpp/space_invader/build"
+			"value" : "e:/Programming_stuff/cpp/space_invader/build"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -335,7 +335,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "E:/vsCode/cpp/space_invader/build/CMakeFiles/pkgRedirects"
+			"value" : "E:/Programming_stuff/cpp/space_invader/build/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -395,7 +395,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "E:/vsCode/cpp/space_invader"
+			"value" : "E:/Programming_stuff/cpp/space_invader"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",
@@ -915,10 +915,10 @@
 				},
 				{
 					"name" : "HELPSTRING",
-					"value" : "No help, variable specified on the command line."
+					"value" : "The CMake toolchain file"
 				}
 			],
-			"type" : "UNINITIALIZED",
+			"type" : "FILEPATH",
 			"value" : "C:/Users/yahya/vcpkg/scripts/buildsystems/vcpkg.cmake"
 		},
 		{
@@ -1303,7 +1303,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "E:/vsCode/cpp/space_invader/build"
+			"value" : "E:/Programming_stuff/cpp/space_invader/build"
 		},
 		{
 			"name" : "space_invaders_IS_TOP_LEVEL",
@@ -1327,7 +1327,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "E:/vsCode/cpp/space_invader"
+			"value" : "E:/Programming_stuff/cpp/space_invader"
 		}
 	],
 	"kind" : "cache",

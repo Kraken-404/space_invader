@@ -1,12 +1,16 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
+#include <array>
 #include <fmt/format.h>
 #include <memory>
 #include <utility>
 #include <vector>
 
+
+// Globals:
 bool game_runnig{false};
-int move_dir = 0;
+int move_dir{};
+bool fire_pressed{};
 
 struct Buffer {
   std::size_t width{}, height{};
@@ -29,11 +33,19 @@ struct Player {
   std::size_t lifes{};
 };
 
+struct Bullet {
+  std::size_t x{}, y{};
+  int dir{};
+};
+
+constexpr int game_max_bullets{128};
+
 struct Game {
   std::size_t width{}, height{};
   std::size_t num_aliens{};
   std::vector<Alien> aliens{};
   Player player{};
+  std::array<Bullet, game_max_bullets> bullets{};
 };
 
 struct Sprite_animation {
@@ -79,6 +91,12 @@ auto key_callback(GLFWwindow *window, int key, int scancode, int action,
       move_dir += 1;
     break;
   }
+  case GLFW_KEY_SPACE: {
+    if (action == GLFW_PRESS)
+      fire_pressed = true;
+    break;
+  }
+
   default:
     break;
   }
@@ -312,6 +330,18 @@ auto main(int argc, char *argv[]) -> int {
       1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // @@@@@@@@@@@
   };
 
+  // creating bullet sprite
+  Sprite bullet_sprite;
+  bullet_sprite.width = 1;
+  bullet_sprite.height = 3;
+  bullet_sprite.m_data.resize(bullet_sprite.width
+                        * bullet_sprite.height);
+  bullet_sprite.m_data = {
+      1, //@
+      1, //@
+      1  //@
+  };
+
   // init game struct
   Game game{};
   game.width = bfr.width;
@@ -429,10 +459,9 @@ auto main(int argc, char *argv[]) -> int {
     glfwSwapBuffers(window); // double buffering scheme, front to dispaly image
     // back to drawing, the buffers swappet each itr using this func
     glfwPollEvents(); // terminates the loop if user intented to
-  }
+  } // end game loop
 
   glfwDestroyWindow(window);
   glfwTerminate();
-
   glDeleteVertexArrays(1, &full_screen_traingle_vao);
 }
