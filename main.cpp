@@ -358,7 +358,7 @@ auto main(int argc, char *argv[]) -> int {
   game.width = bfr.width;
   game.height = bfr.height;
   game.num_aliens = 55;
-  game.aliens = std::vector<Alien>(game.num_aliens);
+  game.aliens.resize(game.num_aliens);
   game.player.x = 112 - 5;
   game.player.y = 32;
   game.player.lives = 3;
