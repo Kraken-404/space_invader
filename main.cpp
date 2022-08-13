@@ -8,7 +8,7 @@
 
 
 // Globals:
-bool game_runnig{false};
+bool game_running{false};
 int move_dir{};
 bool fire_pressed{};
 
@@ -30,7 +30,7 @@ struct Alien {
 
 struct Player {
   std::size_t x{}, y{};
-  std::size_t lifes{};
+  std::size_t lives{};
 };
 
 struct Bullet {
@@ -74,7 +74,7 @@ auto key_callback(GLFWwindow *window, int key, int scancode, int action,
   switch (key) {
   case GLFW_KEY_ESCAPE:
     if (action == GLFW_PRESS) {
-      game_runnig = false;
+      game_running = false;
       break;
     }
   case GLFW_KEY_D: {
@@ -248,9 +248,9 @@ auto main(int argc, char *argv[]) -> int {
       "}\n";
 
   // VAO
-  GLuint full_screen_traingle_vao{};
-  glGenVertexArrays(1, &full_screen_traingle_vao);
-  glBindVertexArray(full_screen_traingle_vao); // bind obj with the name
+  GLuint full_screen_triangle_vao{};
+  glGenVertexArrays(1, &full_screen_triangle_vao);
+  glBindVertexArray(full_screen_triangle_vao); // bind obj with the name
 
   // transfer image data to GPU using OpenGL texture
   GLuint buffer_texture;
@@ -294,7 +294,7 @@ auto main(int argc, char *argv[]) -> int {
   if (!validate_program(shader_id)) {
     fmt::print(" error while validating shader.\n");
     glfwTerminate();
-    glDeleteVertexArrays(1, &full_screen_traingle_vao);
+    glDeleteVertexArrays(1, &full_screen_triangle_vao);
     return -1;
   }
   glUseProgram(shader_id);
@@ -350,7 +350,7 @@ auto main(int argc, char *argv[]) -> int {
   game.aliens = std::vector<Alien>(game.num_aliens);
   game.player.x = 112 - 5;
   game.player.y = 32;
-  game.player.lifes = 3;
+  game.player.lives = 3;
 
   // creating sprite alien
   Sprite alien_sprite0;
@@ -394,16 +394,16 @@ auto main(int argc, char *argv[]) -> int {
 
   // creating animation for the aliens
 
-  auto alien_animtion = std::make_unique<Sprite_animation>();
-  alien_animtion->loop = true;
-  alien_animtion->num_frames = 2;
-  alien_animtion->frame_duration = 10;
-  alien_animtion->time = 0;
+  auto alien_animation = std::make_unique<Sprite_animation>();
+  alien_animation->loop = true;
+  alien_animation->num_frames = 2;
+  alien_animation->frame_duration = 10;
+  alien_animation->time = 0;
 
   // defining frames
-  alien_animtion->frames.resize(2);
-  alien_animtion->frames[0] = &alien_sprite0;
-  alien_animtion->frames[1] = &alien_sprite1;
+  alien_animation->frames.resize(2);
+  alien_animation->frames[0] = &alien_sprite0;
+  alien_animation->frames[1] = &alien_sprite1;
 
   // V-Sync
   glfwSwapInterval(1);
@@ -411,37 +411,45 @@ auto main(int argc, char *argv[]) -> int {
   // control player direction movement
   int player_move = 0;
   // indicates the game is still running
-  game_runnig = true;
+  game_running = true;
   // creating the game loop
-  while (!glfwWindowShouldClose(window) && game_runnig) {
+  while (!glfwWindowShouldClose(window) && game_running) {
 
     buffer_clear(bfr, clear_color);
 
-    // drwing bulltes
+    // drawing bullets
     for (const auto &bullets : game.bullets) {
       buf_sprt_draw(bfr, bullet_sprite, bullets.x, bullets.y, rgb_uint32(128, 0, 0));
     }
-
-    // drawing
+    // positioning bullets
+    for (auto &bullets : game.bullets) {
+      bullets.y += bullets.dir;
+      //
+      if (bullets.y >= game.height || bullets.y < bullet_sprite.height) {
+        bullets.dir = 0;
+      }
+    }
+    // drawing alien spites each animation
     for (const auto &alien : game.aliens) {
       std::size_t curr_frame =
-          alien_animtion->time / alien_animtion->frame_duration;
-      const Sprite &sprite = *alien_animtion->frames[curr_frame];
+          alien_animation->time / alien_animation->frame_duration;
+      const Sprite &sprite = *alien_animation->frames[curr_frame];
       buf_sprt_draw(bfr, sprite, alien.x, alien.y, rgb_uint32(128, 0, 0));
     }
 
+    // drawing player one time
     buf_sprt_draw(bfr, player_sprite, game.player.x, game.player.y,
                   rgb_uint32(128, 0, 0));
 
     // alien animation:
-    ++alien_animtion->time;
-    if (alien_animtion->time ==
-        alien_animtion->num_frames * alien_animtion->frame_duration) {
-      if (alien_animtion->loop)
-        alien_animtion->time = 0;
+    ++alien_animation->time;
+    if (alien_animation->time ==
+        alien_animation->num_frames * alien_animation->frame_duration) {
+      if (alien_animation->loop)
+        alien_animation->time = 0;
       else {
-        alien_animtion.release();
-        alien_animtion.reset();
+        alien_animation.release();
+        alien_animation.reset();
       }
     }
 
@@ -460,12 +468,12 @@ auto main(int argc, char *argv[]) -> int {
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
                     GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 3);
-    glfwSwapBuffers(window); // double buffering scheme, front to dispaly image
-    // back to drawing, the buffers swappet each itr using this func
-    glfwPollEvents(); // terminates the loop if user intented to
+    glfwSwapBuffers(window); // double buffering scheme, front to display image
+    // back to drawing, the buffers swapped each itr using this func
+    glfwPollEvents(); // terminates the loop if user intended to
   } // end game loop
 
   glfwDestroyWindow(window);
   glfwTerminate();
-  glDeleteVertexArrays(1, &full_screen_traingle_vao);
+  glDeleteVertexArrays(1, &full_screen_triangle_vao);
 }
