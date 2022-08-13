@@ -70,7 +70,7 @@ auto error_callback(int error, const char *description) -> void {
 }
 
 auto key_callback(GLFWwindow *window, int key, int scancode, int action,
-                  int mods) {
+                  int mods) -> void {
   switch (key) {
   case GLFW_KEY_ESCAPE:
     if (action == GLFW_PRESS) {
@@ -417,9 +417,13 @@ auto main(int argc, char *argv[]) -> int {
 
     buffer_clear(bfr, clear_color);
 
+    // drwing bulltes
+    for (const auto &bullets : game.bullets) {
+      buf_sprt_draw(bfr, bullet_sprite, bullets.x, bullets.y, rgb_uint32(128, 0, 0));
+    }
+
     // drawing
-    for (size_t i = 0; i < game.num_aliens; ++i) {
-      const Alien &alien = game.aliens[i];
+    for (const auto &alien : game.aliens) {
       std::size_t curr_frame =
           alien_animtion->time / alien_animtion->frame_duration;
       const Sprite &sprite = *alien_animtion->frames[curr_frame];
