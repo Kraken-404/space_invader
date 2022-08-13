@@ -43,6 +43,7 @@ constexpr int game_max_bullets{128};
 struct Game {
   std::size_t width{}, height{};
   std::size_t num_aliens{};
+  std::size_t num_bullets{};
   std::vector<Alien> aliens{};
   Player player{};
   std::array<Bullet, game_max_bullets> bullets{};
@@ -464,6 +465,16 @@ auto main(int argc, char *argv[]) -> int {
         game.player.x += player_move;
       }
     }
+
+
+    // bullet firing
+    if (fire_pressed && game.num_bullets < game_max_bullets) {
+      game.bullets[game.num_bullets].x = game.player.x + player_sprite.width / 2;
+      game.bullets[game.num_bullets].y = game.player.y;
+      game.bullets[game.num_bullets].dir = 2;
+      ++game.num_bullets;
+    }
+    fire_pressed = false;
 
     glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, bfr.width, bfr.height, GL_RGBA,
                     GL_UNSIGNED_INT_8_8_8_8, bfr.m_data.data());
