@@ -516,7 +516,7 @@ auto main(int argc, char *argv[]) -> int {
   glfwSwapInterval(1);
 
   // control player direction movement
-  int player_move = 0;
+  int player_move{};
   // indicates the game is still running
   game_running = true;
   // creating the game loop
@@ -529,14 +529,14 @@ auto main(int argc, char *argv[]) -> int {
       if (!alien_death_counter[i]) // check death counts
         continue;
 
-      const Alien &alien = game.aliens[i];
+      const auto &alien = game.aliens[i];
       if (alien.type == AlienType::DEAD) {
         buf_sprt_draw(bfr, alien_death_sprite, alien.x, alien.y,
                       rgb_uint32(128, 0, 0));
       } else {
-        const Sprite_animation &animation = alien_animation[alien.type - 1];
-        size_t current_frame = animation.time / animation.frame_duration;
-        const Sprite &sprite = *animation.frames[current_frame];
+        const auto &animation = alien_animation[alien.type - 1];
+        auto current_frame = animation.time / animation.frame_duration;
+        const auto &sprite = *animation.frames[current_frame];
         buf_sprt_draw(bfr, sprite, alien.x, alien.y, rgb_uint32(128, 0, 0));
       }
     }
@@ -565,7 +565,7 @@ auto main(int argc, char *argv[]) -> int {
     glfwSwapBuffers(window); // double buffering scheme, front to display image
     // back to drawing, the buffers swapped each itr using this func
 
-    // simulating aliens
+    // counting deaths
     for (size_t i = 0; i < game.num_aliens; ++i) {
 
       if (game.aliens[i].type == AlienType::DEAD && alien_death_counter[i]) {
@@ -588,7 +588,7 @@ auto main(int argc, char *argv[]) -> int {
         game.bullets[i].dir = 0;
       }
       for (size_t j = 0; j < game.num_aliens; j++) {
-        const Alien &alien = game.aliens[j];
+        const auto &alien = game.aliens[j];
         if (alien.type == AlienType::DEAD) {
           continue;
         }
