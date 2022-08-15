@@ -6,6 +6,7 @@
 #include <utility>
 #include <vector>
 
+
 // Globals:
 bool game_running{false};
 int move_dir{};
@@ -523,22 +524,9 @@ auto main(int argc, char *argv[]) -> int {
 
     buffer_clear(bfr, clear_color);
 
-    // drawing bullets
-    for (const auto &bullets : game.bullets) {
-      buf_sprt_draw(bfr, bullet_sprite, bullets.x, bullets.y,
-                    rgb_uint32(128, 0, 0));
-    }
-    // positioning bullets
-    for (auto &bullets : game.bullets) {
-      bullets.y += bullets.dir;
-      //
-      if (bullets.y >= game.height || bullets.y < bullet_sprite.height) {
-        bullets.dir = 0;
-      }
-    }
-    // drawing alien spites each animation
+    // drawing alien and bullet sprites each animation
     for (size_t i = 0; i < game.num_aliens; ++i) {
-      if (!alien_death_counter[i])
+      if (!alien_death_counter[i]) // check death counts
         continue;
 
       const Alien &alien = game.aliens[i];
@@ -552,10 +540,11 @@ auto main(int argc, char *argv[]) -> int {
         buf_sprt_draw(bfr, sprite, alien.x, alien.y, rgb_uint32(128, 0, 0));
       }
     }
-    for (size_t bi = 0; bi < game.num_bullets; ++bi) {
-      const Bullet &bullet = game.bullets[bi];
-      const Sprite &sprite = bullet_sprite;
-      buf_sprt_draw(bfr, sprite, bullet.x, bullet.y, rgb_uint32(128, 0, 0));
+
+    // drawing bullets
+    for (size_t i = 0; i < game.num_bullets; ++i) {
+      const Bullet &bullet = game.bullets[i];
+      buf_sprt_draw(bfr, Sprite{bullet_sprite}, bullet.x, bullet.y, rgb_uint32(128, 0, 0));
     }
 
     // drawing player one time
@@ -584,34 +573,35 @@ auto main(int argc, char *argv[]) -> int {
       }
     }
 
-    // Simulate bullets
-    for (size_t bi = 0; bi < game.num_bullets; ++bi) {
-      game.bullets[bi].y += game.bullets[bi].dir;
-      if (game.bullets[bi].y >= game.height ||
-          game.bullets[bi].y < bullet_sprite.height) {
-        game.bullets[bi] = game.bullets[game.num_bullets - 1];
+    // hit aliens and bullet sim
+    for (size_t i = 0; i < game.num_bullets; ++i) {
+
+      game.bullets[i].y += game.bullets[i].dir;
+      if (game.bullets[i].y >= game.height ||
+          game.bullets[i].y < bullet_sprite.height) {
+        game.bullets[i] = game.bullets[game.num_bullets - 1];
         --game.num_bullets;
         continue;
       }
-
-      // Check hit
-      for (size_t ai = 0; ai < game.num_aliens; ++ai) {
-        const Alien &alien = game.aliens[ai];
-        if (alien.type == AlienType::DEAD)
+      if (game.bullets[i].y >= game.height ||
+          game.bullets[i].y < bullet_sprite.height) {
+        game.bullets[i].dir = 0;
+      }
+      for (size_t j = 0; j < game.num_aliens; j++) {
+        const Alien &alien = game.aliens[j];
+        if (alien.type == AlienType::DEAD) {
           continue;
-
+        }
         const auto &animation = alien_animation[alien.type - 1];
         auto current_frame = animation.time / animation.frame_duration;
         const auto &alien_sprite = *animation.frames[current_frame];
-        bool overlap = sprite_overlap_check(bullet_sprite, game.bullets[bi].x,
-                                            game.bullets[bi].y, alien_sprite,
-                                            alien.x, alien.y);
-        if (overlap) {
-          game.aliens[ai].type = AlienType::DEAD;
-          // NOTE: Hack to recenter death sprite
-          game.aliens[ai].x -=
+        if (sprite_overlap_check(bullet_sprite, game.bullets[i].x,
+                                 game.bullets[i].y, alien_sprite, alien.x,
+                                 alien.y)) {
+          game.aliens[j].type = AlienType::DEAD;
+          game.aliens[j].x -=
               (alien_death_sprite.width - alien_sprite.width) / 2;
-          game.bullets[bi] = game.bullets[game.num_bullets - 1];
+          game.bullets[i] = game.bullets[game.num_bullets - 1];
           --game.num_bullets;
           continue;
         }
