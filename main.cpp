@@ -579,35 +579,41 @@ auto main(int argc, char *argv[]) -> int {
     // simulating aliens
     for (size_t i = 0; i < game.num_aliens; ++i) {
 
-      if (game.aliens[i].type == AlienType::DEAD) {
+      if (game.aliens[i].type == AlienType::DEAD && alien_death_counter[i]) {
         --alien_death_counter[i];
       }
     }
 
-    // simulate firing bullets
-    if (fire_pressed && game.num_bullets < game_max_bullets) {
-      game.bullets[game.num_bullets].x =
-          game.player.x + player_sprite.width / 2;
-      game.bullets[game.num_bullets].y = game.player.y;
-      game.bullets[game.num_bullets].dir = 2;
-      ++game.num_bullets;
-    }
-    fire_pressed = false;
+    // Simulate bullets
+    for (size_t bi = 0; bi < game.num_bullets; ++bi) {
+      game.bullets[bi].y += game.bullets[bi].dir;
+      if (game.bullets[bi].y >= game.height ||
+          game.bullets[bi].y < bullet_sprite.height) {
+        game.bullets[bi] = game.bullets[game.num_bullets - 1];
+        --game.num_bullets;
+        continue;
+      }
 
-    // hit aliens
-    for (size_t i = 0; i < game.num_bullets; ++i) {
-      const Bullet &bullet = game.bullets[i];
-      for (size_t j = 0; j < game.num_aliens; ++j) {
-        const Alien &alien = game.aliens[j];
-        if (alien.type == AlienType::DEAD) {
+      // Check hit
+      for (size_t ai = 0; ai < game.num_aliens; ++ai) {
+        const Alien &alien = game.aliens[ai];
+        if (alien.type == AlienType::DEAD)
           continue;
-        }
-        if (bullet.x >= alien.x &&
-            bullet.x < alien.x + alien_sprites[0].width &&
-            bullet.y >= alien.y &&
-            bullet.y < alien.y + alien_sprites[0].height) {
-          game.aliens[j].type = AlienType::DEAD;
-          game.bullets[i].dir = 0;
+
+        const auto &animation = alien_animation[alien.type - 1];
+        auto current_frame = animation.time / animation.frame_duration;
+        const auto &alien_sprite = *animation.frames[current_frame];
+        bool overlap = sprite_overlap_check(bullet_sprite, game.bullets[bi].x,
+                                            game.bullets[bi].y, alien_sprite,
+                                            alien.x, alien.y);
+        if (overlap) {
+          game.aliens[ai].type = AlienType::DEAD;
+          // NOTE: Hack to recenter death sprite
+          game.aliens[ai].x -=
+              (alien_death_sprite.width - alien_sprite.width) / 2;
+          game.bullets[bi] = game.bullets[game.num_bullets - 1];
+          --game.num_bullets;
+          continue;
         }
       }
     }
@@ -623,6 +629,16 @@ auto main(int argc, char *argv[]) -> int {
         game.player.x += player_move;
       }
     }
+
+    // simulate firing bullets
+    if (fire_pressed && game.num_bullets < game_max_bullets) {
+      game.bullets[game.num_bullets].x =
+          game.player.x + player_sprite.width / 2;
+      game.bullets[game.num_bullets].y = game.player.y;
+      game.bullets[game.num_bullets].dir = 2;
+      ++game.num_bullets;
+    }
+    fire_pressed = false;
 
     glfwPollEvents(); // terminates the loop if user intended to
   }                   // end game loop
