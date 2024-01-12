@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <CustomBuild Include="E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\0ac3ccafdd910d8cfddff4616eb6a5e4\generate.stamp.rule">
       <Filter>CMake Rules</Filter>

@@ -1,1 +1,1 @@
-cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/Users/yahya/vcpkg/scripts/buildsystems/vcpkg.cmake
+cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=C:/Users/DELL/vcpkg/scripts/buildsystems/vcpkg.cmake

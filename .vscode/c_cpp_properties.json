@@ -1,22 +1,28 @@
 {
-    "configurations": [
-        {
-            "name": "Win32",
-            "includePath": [
-                "${workspaceFolder}/**",
-                "${vcpkgRoot}/x64-windows/include",
-                "${vcpkgRoot}/x86-windows/include"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "windowsSdkVersion": "10.0.19041.0",
-            "compilerPath": "E:/vs_2022/VC/Tools/MSVC/14.32.31326/bin/Hostx64/x64/cl.exe",
-            "cStandard": "c17",
-            "configurationProvider": "ms-vscode.cmake-tools"
-        }
-    ],
-    "version": 4
+  "configurations": [
+    {
+      "name": "x64-Debug",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${vcpkgRoot}/x64-windows/include"
+      ],
+      "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+      "compilerPath": "${vcpkgRoot}/x64-windows/bin/cl.exe",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "msvc-x64",
+      "browse": {
+        "path": [
+          "${workspaceFolder}/**",
+          "${vcpkgRoot}/x64-windows/include"
+        ],
+        "limitSymbolsToIncludedHeaders": true,
+        "databaseFilename": ""
+      },
+      "windowsSdkVersion": "10.0.19041.0",
+      "configurationProvider": "ms-vscode.cmake-tools"
+
+    }
+  ],
+  "version": 4
 }

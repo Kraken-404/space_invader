@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
   </PropertyGroup>
@@ -34,22 +34,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -87,29 +87,29 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/yahya/vcpkg/installed/x64-windows/include"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/DELL/vcpkg/installed/x64-windows/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>Disabled</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -119,7 +119,7 @@
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/yahya/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/Debug/space_invaders.exe -installedDir C:/Users/yahya/vcpkg/installed/x64-windows/debug/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/DELL/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/Debug/space_invaders.exe -installedDir C:/Users/DELL/vcpkg/installed/x64-windows/debug/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -129,7 +129,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\Users\yahya\vcpkg\installed\x64-windows\debug\lib\glew32d.lib;C:\Users\yahya\vcpkg\installed\x64-windows\debug\lib\fmtd.lib;opengl32.lib;C:\Users\yahya\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\DELL\vcpkg\installed\x64-windows\debug\lib\glew32d.lib;C:\Users\DELL\vcpkg\installed\x64-windows\debug\lib\fmtd.lib;opengl32.lib;C:\Users\DELL\vcpkg\installed\x64-windows\debug\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -144,29 +144,29 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/yahya/vcpkg/installed/x64-windows/include"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/DELL/vcpkg/installed/x64-windows/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -176,7 +176,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/yahya/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/Release/space_invaders.exe -installedDir C:/Users/yahya/vcpkg/installed/x64-windows/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/DELL/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/Release/space_invaders.exe -installedDir C:/Users/DELL/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -186,7 +186,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\Users\yahya\vcpkg\installed\x64-windows\lib\glew32.lib;C:\Users\yahya\vcpkg\installed\x64-windows\lib\fmt.lib;opengl32.lib;C:\Users\yahya\vcpkg\installed\x64-windows\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\DELL\vcpkg\installed\x64-windows\lib\glew32.lib;C:\Users\DELL\vcpkg\installed\x64-windows\lib\fmt.lib;opengl32.lib;C:\Users\DELL\vcpkg\installed\x64-windows\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -201,29 +201,29 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/yahya/vcpkg/installed/x64-windows/include"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/DELL/vcpkg/installed/x64-windows/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MinSpace</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -233,7 +233,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/yahya/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/MinSizeRel/space_invaders.exe -installedDir C:/Users/yahya/vcpkg/installed/x64-windows/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/DELL/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/MinSizeRel/space_invaders.exe -installedDir C:/Users/DELL/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -243,7 +243,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\Users\yahya\vcpkg\installed\x64-windows\lib\glew32.lib;C:\Users\yahya\vcpkg\installed\x64-windows\lib\fmt.lib;opengl32.lib;C:\Users\yahya\vcpkg\installed\x64-windows\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\DELL\vcpkg\installed\x64-windows\lib\glew32.lib;C:\Users\DELL\vcpkg\installed\x64-windows\lib\fmt.lib;opengl32.lib;C:\Users\DELL\vcpkg\installed\x64-windows\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -258,28 +258,28 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/yahya/vcpkg/installed/x64-windows/include"</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "C:/Users/DELL/vcpkg/installed/x64-windows/include"</AdditionalOptions>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
       <Optimization>MaxSpeed</Optimization>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_LOCALE;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FMT_SHARED;GLFW_DLL;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\yahya\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\DELL\vcpkg\installed\x64-windows\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -289,7 +289,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <PostBuildEvent>
       <Message></Message>
       <Command>setlocal
-C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/yahya/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/RelWithDebInfo/space_invaders.exe -installedDir C:/Users/yahya/vcpkg/installed/x64-windows/bin -OutVariable out
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noprofile -executionpolicy Bypass -file C:/Users/DELL/vcpkg/scripts/buildsystems/msbuild/applocal.ps1 -targetBinary E:/Programming_stuff/cpp/space_invader/build/RelWithDebInfo/space_invaders.exe -installedDir C:/Users/DELL/vcpkg/installed/x64-windows/bin -OutVariable out
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -299,7 +299,7 @@ exit /b %1
 if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>C:\Users\yahya\vcpkg\installed\x64-windows\lib\glew32.lib;C:\Users\yahya\vcpkg\installed\x64-windows\lib\fmt.lib;opengl32.lib;C:\Users\yahya\vcpkg\installed\x64-windows\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\DELL\vcpkg\installed\x64-windows\lib\glew32.lib;C:\Users\DELL\vcpkg\installed\x64-windows\lib\fmt.lib;opengl32.lib;C:\Users\DELL\vcpkg\installed\x64-windows\lib\glfw3dll.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -325,7 +325,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\SelectLibraryConfigurations.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\yahya\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\SelectLibraryConfigurations.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\DELL\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule E:/Programming_stuff/cpp/space_invader/CMakeLists.txt</Message>
@@ -338,7 +338,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\SelectLibraryConfigurations.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\yahya\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\SelectLibraryConfigurations.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\DELL\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule E:/Programming_stuff/cpp/space_invader/CMakeLists.txt</Message>
@@ -351,7 +351,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\SelectLibraryConfigurations.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\yahya\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\SelectLibraryConfigurations.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\DELL\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule E:/Programming_stuff/cpp/space_invader/CMakeLists.txt</Message>
@@ -364,7 +364,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.24\Modules\SelectLibraryConfigurations.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\yahya\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\yahya\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.24.0-rc5\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeDependentOption.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.25\Modules\SelectLibraryConfigurations.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config-version.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\fmt\fmt-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\CopyImportedTargetProperties.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\glew-targets.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glew\vcpkg-cmake-wrapper.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Config.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3ConfigVersion.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-debug.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets-release.cmake;C:\Users\DELL\vcpkg\installed\x64-windows\share\glfw3\glfw3Targets.cmake;C:\Users\DELL\vcpkg\scripts\buildsystems\vcpkg.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeCXXCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeRCCompiler.cmake;E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\3.25.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\Programming_stuff\cpp\space_invader\build\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
